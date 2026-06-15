@@ -285,6 +285,40 @@ input:checked + .toggle-slider:before{transform:translateX(20px);background:var(
 @keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 
+
+/* ── RADAR DO DIA ── */
+.radar-screen{gap:0}
+.radar-btn-scan{width:100%;padding:16px;background:linear-gradient(135deg,#1a0a3e,#0d1520);border:1px solid rgba(138,43,226,.4);border-radius:12px;color:#a855f7;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;cursor:pointer;transition:all .3s;margin-bottom:16px;position:relative;overflow:hidden;}
+.radar-btn-scan:hover{border-color:rgba(138,43,226,.8);box-shadow:0 0 24px rgba(138,43,226,.3);}
+.radar-btn-scan:active{transform:scale(.98)}
+.radar-btn-scan.scanning{animation:radarPulse 1.5s infinite;}
+@keyframes radarPulse{0%,100%{box-shadow:0 0 0 rgba(138,43,226,.4)}50%{box-shadow:0 0 24px rgba(138,43,226,.6)}}
+.radar-status{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--purple);text-align:center;margin-bottom:16px;min-height:16px;}
+.radar-card{background:var(--dark2);border:1px solid var(--border);border-radius:12px;margin-bottom:14px;overflow:hidden;transition:border-color .2s;}
+.radar-card:hover{border-color:rgba(138,43,226,.3)}
+.radar-card-header{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.radar-match{font-size:14px;font-weight:700;flex:1;}
+.radar-league{font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+.radar-time{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);flex-shrink:0;}
+.radar-card-body{padding:12px 16px;}
+.radar-tip{font-size:13px;color:var(--yellow);font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.radar-stats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;}
+.radar-stat-pill{background:var(--dark3);border-radius:6px;padding:4px 10px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);}
+.radar-stat-pill.highlight{background:rgba(0,255,135,.08);color:var(--green);border:1px solid rgba(0,255,135,.2);}
+.radar-confidence{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.radar-btn-analyze{width:100%;padding:10px;background:var(--green);color:#000;border:none;border-radius:8px;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;cursor:pointer;transition:all .2s;}
+.radar-btn-analyze:active{transform:scale(.98)}
+.radar-empty{text-align:center;padding:40px 20px;color:var(--muted);}
+.radar-score{background:linear-gradient(135deg,rgba(138,43,226,.15),rgba(138,43,226,.05));border:1px solid rgba(138,43,226,.3);border-radius:6px;padding:3px 8px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#a855f7;font-weight:700;}
+
+
+.radar-date-row{display:flex;gap:10px;margin-bottom:14px;align-items:center;}
+.radar-date-input{background:var(--dark2);border:1px solid var(--border);border-radius:8px;padding:11px 14px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:13px;flex:1;outline:none;transition:border-color .2s;}
+.radar-date-input:focus{border-color:rgba(138,43,226,.5)}
+.radar-date-btn{background:var(--dark2);border:1px solid var(--border);border-radius:8px;padding:11px 14px;color:var(--muted);font-size:12px;cursor:pointer;white-space:nowrap;transition:all .2s;}
+.radar-date-btn.active{background:rgba(138,43,226,.1);border-color:rgba(138,43,226,.4);color:#a855f7;}
+.radar-date-btn:active{opacity:.7}
+
 /* ── BACKTESTING ── */
 .bt-stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;}
 .bt-stat{background:var(--dark2);border:1px solid var(--border);border-radius:10px;padding:14px 10px;text-align:center;}
@@ -320,7 +354,7 @@ input:checked + .toggle-slider:before{transform:translateX(20px);background:var(
 <div class="screen active" id="screenSetup">
   <div class="setup-logo">⚽</div>
   <div class="setup-title">SCOUT <span>FUTEBOL</span></div>
-  <div class="setup-sub">Análise preditiva com IA · v20b<br>Configure sua chave de API para começar</div>
+  <div class="setup-sub">Análise preditiva com IA · v21b<br>Configure sua chave de API para começar</div>
   <div class="setup-card">
     <div class="field-label">Sua API Key da Anthropic</div>
     <div class="api-field-wrap">
@@ -337,11 +371,12 @@ input:checked + .toggle-slider:before{transform:translateX(20px);background:var(
   <div class="topbar">
     <div class="topbar-logo">SCOUT <span>⚽</span></div>
     <div class="topbar-actions">
+      <div class="icon-btn" onclick="openRadar()" title="Radar do Dia">🎯</div>
       <div class="icon-btn" onclick="openBT()" title="Backtesting">📊</div>
       <div class="icon-btn" onclick="openSettings()">⚙️</div>
     </div>
   </div>
-  <div class="live-badge"><span class="live-dot"></span>IA ONLINE · v20b</div>
+  <div class="live-badge"><span class="live-dot"></span>IA ONLINE · v21b</div>
   <div class="section-label">Nova análise</div>
   <div class="input-card">
     <div class="teams-row">
@@ -413,6 +448,24 @@ input:checked + .toggle-slider:before{transform:translateX(20px);background:var(
     <div class="btn-fav-result" id="favBtn" onclick="toggleFavResult()">☆</div>
   </div>
   <div id="resultBody"></div>
+</div>
+
+<!-- RADAR DO DIA -->
+<div class="screen radar-screen" id="screenRadar">
+  <div class="result-topbar">
+    <div class="btn-back" onclick="showScreen('screenHome');renderHistory()">←</div>
+    <div class="result-title">🎯 RADAR DO DIA</div>
+  </div>
+  <div class="radar-date-row">
+    <input type="date" class="radar-date-input" id="radarDate">
+    <div class="radar-date-btn active" id="btnHoje" onclick="setRadarDate('hoje')">Hoje</div>
+    <div class="radar-date-btn" id="btnAmanha" onclick="setRadarDate('amanha')">Amanhã</div>
+  </div>
+  <button class="radar-btn-scan" id="radarBtn" onclick="runRadar()">
+    🔍 BUSCAR OPORTUNIDADES
+  </button>
+  <div class="radar-status" id="radarStatus"></div>
+  <div id="radarBody"></div>
 </div>
 
 <!-- BACKTESTING SCREEN -->
@@ -1206,6 +1259,243 @@ function renderBT() {
     <div class="section-label" style="margin:16px 0 10px">Registrar resultados</div>
     ${itemRows}
   `;
+}
+
+
+// ── RADAR DO DIA ──
+const RADAR_SYSTEM = `Você é um scout esportivo especializado em identificar as melhores oportunidades de apostas do dia.
+
+Sua tarefa: buscar na web os jogos de futebol de HOJE, avaliar quais têm os melhores dados estatísticos disponíveis e retornar as top 3-5 oportunidades com maior valor esperado.
+
+CRITÉRIOS DE SELEÇÃO (em ordem de prioridade):
+1. Dados consistentes e abundantes disponíveis (descarte ligas sem dados)
+2. EV positivo nas odds disponíveis
+3. Tendências estatísticas claras (3+ indicadores apontando mesma direção)
+4. Sem contradições graves nos dados
+5. Preferência por ligas com histórico confiável
+
+LIGAS ACEITAS (com dados confiáveis):
+Brasileirão A, Brasileirão B, Brasileirão C, Premier League, La Liga, Serie A, Bundesliga, Ligue 1, Liga Portugal, Eredivisie, Champions League, Europa League, Conference League, Liga Argentina, Liga Colombiana, Copa Libertadores, Copa Sul-Americana, MLS, Scottish Premiership, Belgian Pro League, Turkish Super Lig, Greek Super League, Danish Superliga, Norwegian Eliteserien, Swedish Allsvenskan, Swiss Super League, Austrian Bundesliga, Czech Liga, Polish Ekstraklasa, Romanian Liga 1, Croatian HNL, Serbian SuperLiga, Ukrainian Premier League.
+
+LIGAS DESCARTAR: ligas amadoras, regionais, divisões inferiores sem dados, ligas africanas de baixo nível, ligas asiáticas sem dados verificáveis.
+
+PESQUISA OBRIGATÓRIA:
+- Busque "jogos futebol hoje [data atual]" no Sofascore/Flashscore
+- Para cada jogo candidato: últimos 5 H2H, forma recente, odds atuais
+- Calcule EV: (prob_estimada * odd) - 1
+- Descarte partidas com dados insuficientes ou contraditórios
+
+Responda APENAS JSON puro sem markdown:
+{
+  "date": "DD/MM/YYYY",
+  "total_games_analyzed": 15,
+  "opportunities": [
+    {
+      "home": "Time Casa",
+      "away": "Time Visitante", 
+      "league": "Nome da Liga",
+      "country": "País",
+      "match_time": "HH:MM (Brasília)",
+      "tip": "Mercado recomendado ex: Over 2.5 FT",
+      "tip_confidence": 4,
+      "reasoning": "Dado 1 numérico • Dado 2 numérico • Dado 3 numérico",
+      "prob_estimated": 68,
+      "odd_available": 1.95,
+      "ev": 0.12,
+      "ev_label": "VALUE +12%",
+      "key_data": ["• H2H: 4/5 Over 2.5","• Mandante: 80% Over em casa","• Odds implicam 51% vs 68% estimado"],
+      "data_quality": "Alta",
+      "stars": 4
+    }
+  ],
+  "summary": "X oportunidades encontradas em Y jogos analisados. Melhor oportunidade: [partida]."
+}
+Ordene por stars DESC, depois por ev DESC. Máximo 5 oportunidades. Mínimo stars=3 para incluir.`;
+
+let radarResults = [];
+
+function openRadar() {
+  showScreen('screenRadar');
+  // Set default date to today
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth()+1).padStart(2,'0');
+  const dd = String(today.getDate()).padStart(2,'0');
+  document.getElementById('radarDate').value = `${yyyy}-${mm}-${dd}`;
+  if (radarResults.length) renderRadarResults(radarResults);
+}
+
+function setRadarDate(which) {
+  const d = new Date();
+  if (which === 'amanha') d.setDate(d.getDate()+1);
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth()+1).padStart(2,'0');
+  const dd = String(d.getDate()).padStart(2,'0');
+  document.getElementById('radarDate').value = `${yyyy}-${mm}-${dd}`;
+  document.getElementById('btnHoje').classList.toggle('active', which==='hoje');
+  document.getElementById('btnAmanha').classList.toggle('active', which==='amanha');
+  // Clear previous results when date changes
+  radarResults = [];
+  document.getElementById('radarBody').innerHTML = '';
+  document.getElementById('radarStatus').textContent = '';
+  document.getElementById('radarBtn').textContent = '🔍 BUSCAR OPORTUNIDADES';
+}
+
+async function runRadar() {
+  const btn = document.getElementById('radarBtn');
+  const status = document.getElementById('radarStatus');
+  const body = document.getElementById('radarBody');
+  
+  btn.disabled = true;
+  btn.classList.add('scanning');
+  btn.textContent = '🔍 BUSCANDO OPORTUNIDADES...';
+  
+  const steps = [
+    'Buscando jogos de hoje no Sofascore...',
+    'Analisando dados estatísticos...',
+    'Calculando Expected Value das odds...',
+    'Filtrando melhores oportunidades...',
+    'Gerando relatório final...'
+  ];
+  let si = 0;
+  status.textContent = steps[0];
+  const stInt = setInterval(() => {
+    si = Math.min(si+1, steps.length-1);
+    status.textContent = steps[si];
+  }, 3000);
+
+  const dateVal = document.getElementById('radarDate').value;
+  const [yyyy,mm,dd] = dateVal.split('-');
+  const selectedDate = `${dd}/${mm}/${yyyy}`;
+  const isToday = dateVal === new Date().toISOString().split('T')[0];
+  const isTomorrow = dateVal === new Date(Date.now()+86400000).toISOString().split('T')[0];
+  const dayLabel = isToday ? 'HOJE' : isTomorrow ? 'AMANHÃ' : selectedDate;
+  
+  const userMsg = `Data selecionada: ${selectedDate} (${dayLabel})
+  
+Busque na web os jogos de futebol de ${dayLabel} (${selectedDate}) em todas as ligas disponíveis.
+Para cada jogo com dados suficientes, analise: forma recente, H2H, odds disponíveis e EV.
+Retorne as TOP 5 melhores oportunidades do dia com maior valor esperado e dados mais consistentes.
+Descarte jogos sem dados confiáveis ou de ligas amadoras.`;
+
+  try {
+    const messages = [{role:'user', content: userMsg}];
+    let fullText = '', iters = 0;
+    let totalIn = 0, totalOut = 0;
+
+    while (iters < 15) {
+      iters++;
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json',
+          'x-api-key': apiKey,
+          'anthropic-version':'2023-06-01',
+          'anthropic-dangerous-direct-browser-access':'true'
+        },
+        body: JSON.stringify({
+          model:'claude-haiku-4-5',
+          max_tokens:4000,
+          tools:[{type:'web_search_20250305',name:'web_search'}],
+          system: RADAR_SYSTEM,
+          messages
+        })
+      });
+
+      if (!res.ok) { const e=await res.json(); throw new Error(e.error?.message||`HTTP ${res.status}`); }
+      const data = await res.json();
+      if (data.usage) { totalIn+=data.usage.input_tokens||0; totalOut+=data.usage.output_tokens||0; }
+      const texts = data.content.filter(b=>b.type==='text');
+      if (texts.length) fullText = texts.map(b=>b.text).join('
+');
+      if (data.stop_reason==='end_turn') break;
+      const toolUses = data.content.filter(b=>b.type==='tool_use');
+      if (!toolUses.length) break;
+      messages.push({role:'assistant',content:data.content});
+      messages.push({role:'user',content:toolUses.map(tu=>({type:'tool_result',tool_use_id:tu.id,content:[]}))});
+    }
+
+    clearInterval(stInt);
+
+    let result;
+    try {
+      const clean = fullText.replace(/```json\s*/gi,'').replace(/```\s*/g,'').trim();
+      const match = clean.match(/\{[\s\S]*\}/);
+      let best = match ? match[0] : clean;
+      best = best.replace(/,\s*([}\]])/g,'$1');
+      result = JSON.parse(best);
+    } catch(e) {
+      throw new Error('Não foi possível interpretar os resultados. Tente novamente.');
+    }
+
+    radarResults = result.opportunities || [];
+    
+    const cost = ((totalIn*0.0000008)+(totalOut*0.000004)).toFixed(3);
+    status.textContent = `✅ ${dayLabel}: ${result.summary || radarResults.length + ' oportunidades encontradas'} · 💰 US$ ${cost}`;
+    
+    renderRadarResults(radarResults);
+
+  } catch(e) {
+    clearInterval(stInt);
+    status.textContent = '❌ Erro: ' + e.message;
+  } finally {
+    btn.disabled = false;
+    btn.classList.remove('scanning');
+    btn.textContent = '🔄 ATUALIZAR RADAR';
+  }
+}
+
+function renderRadarResults(opps) {
+  const body = document.getElementById('radarBody');
+  if (!opps.length) {
+    body.innerHTML = `<div class="radar-empty"><span style="font-size:36px;display:block;margin-bottom:12px;opacity:.4">🔍</span>Nenhuma oportunidade encontrada hoje.<br>Tente novamente mais tarde.</div>`;
+    return;
+  }
+
+  body.innerHTML = opps.map((o, i) => {
+    const evColor = o.ev > 0.08 ? '#FFD700' : o.ev > 0 ? 'var(--green)' : 'var(--red)';
+    const stars = starsHtml(o.stars||3);
+    const keyData = Array.isArray(o.key_data) ? o.key_data.join('<br>') : (o.key_data||'');
+    return `
+    <div class="radar-card">
+      <div class="radar-card-header">
+        <div>
+          <div class="radar-match">${o.home} × ${o.away}</div>
+          <div class="radar-league">${o.league} · ${o.country||''}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+          <div class="radar-time">${o.match_time||'—'}</div>
+          <div class="radar-score">#${i+1}</div>
+        </div>
+      </div>
+      <div class="radar-card-body">
+        <div class="radar-tip">🎯 ${o.tip}</div>
+        <div class="radar-confidence">
+          ${stars}
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:${evColor};margin-left:6px">${o.ev_label||''}</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);margin-left:4px">Odd: ${o.odd_available||'—'}</span>
+        </div>
+        <div style="font-size:12px;color:#bfcfe8;line-height:1.7;margin-bottom:10px">${keyData}</div>
+        <div class="radar-stats">
+          <div class="radar-stat-pill highlight">${o.prob_estimated||'—'}% prob estimada</div>
+          <div class="radar-stat-pill">${o.data_quality||'—'} qualidade</div>
+        </div>
+        <button class="radar-btn-analyze" onclick="radarAnalyzeMatch('${esc(o.home)}','${esc(o.away)}','${esc(o.league)}','${esc(o.match_time||'')}')">
+          ⚡ ANALISAR COMPLETO
+        </button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function radarAnalyzeMatch(home, away, league, time) {
+  showScreen('screenHome');
+  document.getElementById('homeTeam').value = home;
+  document.getElementById('awayTeam').value = away;
+  document.getElementById('competition').value = league;
+  document.getElementById('matchTime').value = time;
+  window.scrollTo({top:0,behavior:'smooth'});
+  setTimeout(() => startAnalysis(), 300);
 }
 
 </script>
